@@ -23,6 +23,9 @@ tags:
     - name: Transaksi
 
 paths:
+    # =========================
+    # AUTH
+    # =========================
     /api/auth/register:
         $ref: './paths/auth.yaml#/register'
 
@@ -35,11 +38,23 @@ paths:
     /api/auth/logout:
         $ref: './paths/auth.yaml#/logout'
 
+    # =========================
+    # PRODUK
+    # =========================
     /api/produk:
         $ref: './paths/produk.yaml#/produk'
 
+    /api/produk/{id}:
+        $ref: './paths/produk.yaml#/produkById'
+
+    # =========================
+    # PESANAN
+    # =========================
     /api/pesanan:
         $ref: './paths/pesanan.yaml#/pesanan'
 
+    # =========================
+    # TRANSAKSI
+    # =========================
     /api/transaksi/create:
         $ref: './paths/transaksi.yaml#/create'

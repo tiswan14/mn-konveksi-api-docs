@@ -3,47 +3,64 @@ register:
         tags:
             - Auth
         summary: Register user baru
+        description: Endpoint untuk registrasi user baru (CUSTOMER)
+        security: []
         requestBody:
             required: true
             content:
                 application/json:
                     schema:
                         type: object
-                        required: [nama, email, password, no_hp]
+                        required:
+                            - nama
+                            - email
+                            - password
+                            - no_hp
                         properties:
                             nama:
                                 type: string
+                                example: Tiswan
                             email:
                                 type: string
+                                example: tiswan@example.com
                             password:
                                 type: string
+                                example: secret123
                             no_hp:
                                 type: string
+                                example: '081234567890'
                             alamat:
                                 type: string
+                                example: Tasikmalaya
         responses:
             '201':
                 description: Registrasi berhasil
             '400':
-                description: Email sudah digunakan
+                description: Email sudah digunakan atau validasi gagal
 
 login:
     post:
         tags:
             - Auth
         summary: Login user
+        description: Login user dan mendapatkan JWT token
+        security: []
         requestBody:
             required: true
             content:
                 application/json:
                     schema:
                         type: object
-                        required: [email, password]
+                        required:
+                            - email
+                            - password
                         properties:
                             email:
                                 type: string
+                                example: tiswan@example.com
                             password:
                                 type: string
+                                example: secret123
         responses:
             '200':
                 description: Login berhasil
@@ -54,7 +71,8 @@ me:
     get:
         tags:
             - Auth
-        summary: Ambil profil user
+        summary: Ambil profil user login
+        description: Mengambil data user berdasarkan token JWT
         security:
             - bearerAuth: []
         responses:
@@ -62,12 +80,15 @@ me:
                 description: Data user berhasil diambil
             '401':
                 description: Unauthorized
+            '404':
+                description: User tidak ditemukan
 
 logout:
     post:
         tags:
             - Auth
         summary: Logout user
+        description: Logout user (client-side token invalidation)
         security:
             - bearerAuth: []
         responses:
