@@ -1,0 +1,58 @@
+transaksiCreate:
+    post:
+        tags:
+            - Transaksi
+        summary: Buat transaksi pembayaran
+        description: |
+            Membuat transaksi pembayaran DP atau Pelunasan menggunakan Midtrans.
+            Endpoint ini **wajib login**.
+        security:
+            - bearerAuth: []
+        requestBody:
+            required: true
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        required:
+                            - id_pesanan
+                            - jenis_pembayaran
+                        properties:
+                            id_pesanan:
+                                type: integer
+                                example: 12
+                            jenis_pembayaran:
+                                type: string
+                                enum:
+                                    - DP
+                                    - PELUNASAN
+                                example: DP
+        responses:
+            '200':
+                description: Transaksi berhasil dibuat
+            '400':
+                description: Gagal membuat transaksi
+            '401':
+                description: Unauthorized
+
+transaksiWebhook:
+    post:
+        tags:
+            - Transaksi
+        summary: Webhook Midtrans
+        description: |
+            Endpoint callback dari Midtrans untuk update status transaksi.
+            Endpoint ini **PUBLIC** (tidak memakai auth).
+        security: []
+        requestBody:
+            required: true
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        description: Payload webhook Midtrans
+        responses:
+            '200':
+                description: Webhook berhasil diproses
+            '500':
+                description: Webhook error

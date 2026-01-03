@@ -1,0 +1,141 @@
+pesanan:
+    post:
+        tags:
+            - Pesanan
+        summary: Buat pesanan baru
+        description: Customer membuat pesanan baru
+        security:
+            - bearerAuth: []
+        requestBody:
+            required: true
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        required:
+                            - id_produk
+                            - qty
+                            - harga_satuan
+                        properties:
+                            id_produk:
+                                type: integer
+                                example: 1
+                            qty:
+                                type: integer
+                                example: 10
+                            harga_satuan:
+                                type: integer
+                                example: 50000
+        responses:
+            '201':
+                description: Pesanan berhasil dibuat
+            '400':
+                description: Gagal membuat pesanan
+            '403':
+                description: Admin tidak diperbolehkan membuat pesanan
+
+    get:
+        tags:
+            - Pesanan
+        summary: Ambil pesanan milik user
+        description: Mengambil daftar pesanan berdasarkan user login
+        security:
+            - bearerAuth: []
+        responses:
+            '200':
+                description: Data pesanan berhasil diambil
+            '500':
+                description: Gagal mengambil pesanan
+
+pesananById:
+    get:
+        tags:
+            - Pesanan
+        summary: Ambil detail pesanan
+        description: Mengambil detail pesanan berdasarkan ID
+        security:
+            - bearerAuth: []
+        parameters:
+            - name: id
+              in: path
+              required: true
+              description: ID pesanan
+              schema:
+                  type: integer
+        responses:
+            '200':
+                description: Detail pesanan berhasil diambil
+            '404':
+                description: Pesanan tidak ditemukan
+            '500':
+                description: Gagal mengambil detail pesanan
+
+pesananStatus:
+    patch:
+        tags:
+            - Pesanan
+        summary: Update status pesanan
+        description: Mengubah status pesanan (Admin only)
+        security:
+            - bearerAuth: []
+        parameters:
+            - name: id
+              in: path
+              required: true
+              description: ID pesanan
+              schema:
+                  type: integer
+        requestBody:
+            required: true
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        required:
+                            - status_pesanan
+                        properties:
+                            status_pesanan:
+                                type: string
+                                enum:
+                                    - MENUNGGU_DP
+                                    - DIPROSES
+                                    - MENUNGGU_PELUNASAN
+                                    - SELESAI
+                                example: DIPROSES
+        responses:
+            '200':
+                description: Status pesanan berhasil diperbarui
+            '403':
+                description: Akses ditolak
+            '500':
+                description: Gagal memperbarui status pesanan
+
+pesananSummaryUser:
+    get:
+        tags:
+            - Pesanan
+        summary: Ringkasan pesanan customer
+        description: Summary pesanan untuk dashboard customer
+        security:
+            - bearerAuth: []
+        responses:
+            '200':
+                description: Ringkasan pesanan user berhasil diambil
+            '500':
+                description: Gagal mengambil summary user
+
+pesananSummaryAdmin:
+    get:
+        tags:
+            - Pesanan
+        summary: Ringkasan pesanan admin
+        description: Summary seluruh pesanan untuk dashboard admin
+        security:
+            - bearerAuth: []
+        responses:
+            '200':
+                description: Ringkasan pesanan admin berhasil diambil
+            '403':
+                description: Akses ditolak
+            '500':
+                description: Gagal mengambil summary admin

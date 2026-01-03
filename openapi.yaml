@@ -18,6 +18,7 @@ components:
 
 tags:
     - name: Auth
+    - name: User 
     - name: Produk
     - name: Pesanan
     - name: Transaksi
@@ -38,6 +39,18 @@ paths:
     /api/auth/logout:
         $ref: './paths/auth.yaml#/logout'
 
+
+
+    # =========================
+    # USER (ADMIN)
+    # =========================
+    /api/admin/users:
+        $ref: './paths/user.yaml#/adminUsers'
+
+    /api/admin/users/{id}:
+        $ref: './paths/user.yaml#/adminUserById'
+
+
     # =========================
     # PRODUK
     # =========================
@@ -53,8 +66,24 @@ paths:
     /api/pesanan:
         $ref: './paths/pesanan.yaml#/pesanan'
 
+    /api/pesanan/{id}:
+        $ref: './paths/pesanan.yaml#/pesananById'
+
+    /api/pesanan/{id}/status:
+        $ref: './paths/pesanan.yaml#/pesananStatus'
+
+    /api/pesanan/me/summary:
+        $ref: './paths/pesanan.yaml#/pesananSummaryUser'
+
+    /api/pesanan/admin/summary:
+        $ref: './paths/pesanan.yaml#/pesananSummaryAdmin'
+
     # =========================
     # TRANSAKSI
     # =========================
+
     /api/transaksi/create:
-        $ref: './paths/transaksi.yaml#/create'
+        $ref: './paths/transaksi.yaml#/transaksiCreate'
+
+    /api/transaksi/webhook:
+        $ref: './paths/transaksi.yaml#/transaksiWebhook'
