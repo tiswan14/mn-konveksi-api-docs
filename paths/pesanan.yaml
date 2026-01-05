@@ -26,6 +26,10 @@ pesanan:
                             harga_satuan:
                                 type: integer
                                 example: 50000
+                            catatan:
+                                type: string
+                                nullable: true
+                                example: 'Tolong warna hitam dan ukuran XL'
         responses:
             '201':
                 description: Pesanan berhasil dibuat

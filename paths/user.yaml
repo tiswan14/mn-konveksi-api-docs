@@ -1,0 +1,89 @@
+adminUsers:
+    get:
+        tags:
+            - User
+        summary: Ambil semua user
+        description: Mengambil daftar seluruh user (Admin only)
+        security:
+            - bearerAuth: []
+        responses:
+            '200':
+                description: Data user berhasil diambil
+            '403':
+                description: Akses ditolak
+            '500':
+                description: Gagal mengambil data user
+
+adminUserById:
+    get:
+        tags:
+            - User
+        summary: Ambil detail user
+        description: Mengambil detail user berdasarkan ID (Admin only)
+        security:
+            - bearerAuth: []
+        parameters:
+            - name: id
+              in: path
+              required: true
+              description: ID user
+              schema:
+                  type: integer
+                  example: 1
+        responses:
+            '200':
+                description: Detail user berhasil diambil
+            '404':
+                description: User tidak ditemukan
+            '500':
+                description: Gagal mengambil data user
+
+    patch:
+        tags:
+            - User
+        summary: Update data user
+        description: |
+            Memperbarui data user (Admin only).
+            Field sensitif seperti email dan password **tidak dapat diubah**.
+        security:
+            - bearerAuth: []
+        parameters:
+            - name: id
+              in: path
+              required: true
+              description: ID user
+              schema:
+                  type: integer
+                  example: 1
+        requestBody:
+            required: true
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        description: Data user yang dapat diperbarui
+                        properties:
+                            nama:
+                                type: string
+                                example: Tiswan
+                            role:
+                                type: string
+                                enum:
+                                    - ADMIN
+                                    - CUSTOMER
+                                example: CUSTOMER
+                            no_hp:
+                                type: string
+                                example: '081234567890'
+                            alamat:
+                                type: string
+                                example: Tasikmalaya
+        responses:
+            '200':
+                description: User berhasil diperbarui
+            '400':
+                description: Data tidak valid
+            '403':
+                description: Akses ditolak
+            '404':
+                description: User tidak ditemukan
