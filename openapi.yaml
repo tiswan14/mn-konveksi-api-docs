@@ -18,7 +18,7 @@ components:
 
 tags:
     - name: Auth
-    - name: User 
+    - name: User
     - name: Produk
     - name: Pesanan
     - name: Transaksi
@@ -39,8 +39,6 @@ paths:
     /api/auth/logout:
         $ref: './paths/auth.yaml#/logout'
 
-
-
     # =========================
     # USER (ADMIN)
     # =========================
@@ -49,7 +47,6 @@ paths:
 
     /api/admin/users/{id}:
         $ref: './paths/user.yaml#/adminUserById'
-
 
     # =========================
     # PRODUK
@@ -81,7 +78,6 @@ paths:
     # =========================
     # TRANSAKSI
     # =========================
-
     /api/transaksi/create:
         $ref: './paths/transaksi.yaml#/transaksiCreate'
 

@@ -15,7 +15,6 @@ pesanan:
                         required:
                             - id_produk
                             - qty
-                            - harga_satuan
                         properties:
                             id_produk:
                                 type: integer
@@ -23,13 +22,10 @@ pesanan:
                             qty:
                                 type: integer
                                 example: 10
-                            harga_satuan:
-                                type: integer
-                                example: 50000
                             catatan:
                                 type: string
                                 nullable: true
-                                example: 'Tolong warna hitam dan ukuran XL'
+                                example: Tolong warna hitam dan ukuran XL
         responses:
             '201':
                 description: Pesanan berhasil dibuat
@@ -51,6 +47,9 @@ pesanan:
             '500':
                 description: Gagal mengambil pesanan
 
+# ===============================
+# PESANAN BY ID (GET + DELETE)
+# ===============================
 pesananById:
     get:
         tags:
@@ -74,6 +73,49 @@ pesananById:
             '500':
                 description: Gagal mengambil detail pesanan
 
+    delete:
+        tags:
+            - Pesanan
+        summary: Hapus pesanan
+        description: >
+            Menghapus pesanan berdasarkan ID.
+            Customer hanya dapat menghapus pesanan miliknya sendiri.
+            Pesanan tidak dapat dihapus jika sudah diproses, selesai,
+            atau memiliki transaksi pembayaran yang berhasil.
+        security:
+            - bearerAuth: []
+        parameters:
+            - name: id
+              in: path
+              required: true
+              description: ID pesanan
+              schema:
+                  type: integer
+                  example: 1
+        responses:
+            '200':
+                description: Pesanan berhasil dihapus
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                success:
+                                    type: boolean
+                                    example: true
+                                message:
+                                    type: string
+                                    example: Pesanan berhasil dihapus
+            '400':
+                description: Pesanan tidak dapat dihapus
+            '403':
+                description: Tidak diizinkan menghapus pesanan
+            '404':
+                description: Pesanan tidak ditemukan
+
+# ===============================
+# UPDATE STATUS PESANAN (ADMIN)
+# ===============================
 pesananStatus:
     patch:
         tags:
@@ -114,6 +156,9 @@ pesananStatus:
             '500':
                 description: Gagal memperbarui status pesanan
 
+# ===============================
+# SUMMARY CUSTOMER
+# ===============================
 pesananSummaryUser:
     get:
         tags:
@@ -128,6 +173,9 @@ pesananSummaryUser:
             '500':
                 description: Gagal mengambil summary user
 
+# ===============================
+# SUMMARY ADMIN
+# ===============================
 pesananSummaryAdmin:
     get:
         tags:
