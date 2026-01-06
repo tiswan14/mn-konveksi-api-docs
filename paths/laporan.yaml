@@ -1,0 +1,167 @@
+pendapatanHarian:
+    get:
+        tags:
+            - Laporan
+        summary: Pendapatan Harian
+        description: Mengambil laporan pendapatan berdasarkan tanggal (Admin only)
+        security:
+            - bearerAuth: []
+        parameters:
+            - name: tanggal
+              in: query
+              required: true
+              schema:
+                  type: string
+                  format: date
+                  example: 2026-01-05
+        responses:
+            '200':
+                description: Pendapatan harian berhasil diambil
+            '403':
+                description: Akses ditolak
+            '500':
+                description: Gagal mengambil data
+
+pendapatanBulanan:
+    get:
+        tags:
+            - Laporan
+        summary: Pendapatan Bulanan
+        description: Mengambil laporan pendapatan bulanan (Admin only)
+        security:
+            - bearerAuth: []
+        parameters:
+            - name: bulan
+              in: query
+              required: true
+              schema:
+                  type: integer
+                  example: 1
+            - name: tahun
+              in: query
+              required: true
+              schema:
+                  type: integer
+                  example: 2026
+        responses:
+            '200':
+                description: Pendapatan bulanan berhasil diambil
+            '403':
+                description: Akses ditolak
+            '500':
+                description: Gagal mengambil data
+
+pendapatanTahunan:
+    get:
+        tags:
+            - Laporan
+        summary: Pendapatan Tahunan
+        description: Mengambil laporan pendapatan tahunan (Admin only)
+        security:
+            - bearerAuth: []
+        parameters:
+            - name: tahun
+              in: query
+              required: true
+              schema:
+                  type: integer
+                  example: 2026
+        responses:
+            '200':
+                description: Pendapatan tahunan berhasil diambil
+            '403':
+                description: Akses ditolak
+            '500':
+                description: Gagal mengambil data
+
+pesananStatus:
+    get:
+        tags:
+            - Laporan
+        summary: Pesanan Berdasarkan Status
+        description: Rekap pesanan berdasarkan status (Admin only)
+        security:
+            - bearerAuth: []
+        responses:
+            '200':
+                description: Data pesanan berdasarkan status berhasil diambil
+            '403':
+                description: Akses ditolak
+            '500':
+                description: Gagal mengambil data
+
+pesananHarian:
+    get:
+        tags:
+            - Laporan
+        summary: Pesanan Harian
+        description: Mengambil laporan pesanan berdasarkan tanggal (Admin only)
+        security:
+            - bearerAuth: []
+        parameters:
+            - name: tanggal
+              in: query
+              required: true
+              schema:
+                  type: string
+                  format: date
+                  example: 2026-01-05
+        responses:
+            '200':
+                description: Pesanan harian berhasil diambil
+            '403':
+                description: Akses ditolak
+            '500':
+                description: Gagal mengambil data
+
+pesananBulanan:
+    get:
+        tags:
+            - Laporan
+        summary: Pesanan Bulanan
+        description: Mengambil laporan pesanan bulanan (Admin only)
+        security:
+            - bearerAuth: []
+        parameters:
+            - name: bulan
+              in: query
+              required: true
+              schema:
+                  type: integer
+                  example: 1
+            - name: tahun
+              in: query
+              required: true
+              schema:
+                  type: integer
+                  example: 2026
+        responses:
+            '200':
+                description: Pesanan bulanan berhasil diambil
+            '403':
+                description: Akses ditolak
+            '500':
+                description: Gagal mengambil data
+
+pesananTahunan:
+    get:
+        tags:
+            - Laporan
+        summary: Pesanan Tahunan
+        description: Mengambil laporan pesanan tahunan (Admin only)
+        security:
+            - bearerAuth: []
+        parameters:
+            - name: tahun
+              in: query
+              required: true
+              schema:
+                  type: integer
+                  example: 2026
+        responses:
+            '200':
+                description: Pesanan tahunan berhasil diambil
+            '403':
+                description: Akses ditolak
+            '500':
+                description: Gagal mengambil data

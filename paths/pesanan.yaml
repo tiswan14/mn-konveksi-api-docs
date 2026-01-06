@@ -114,6 +114,56 @@ pesananById:
                 description: Pesanan tidak ditemukan
 
 # ===============================
+# GET ALL PESANAN (ADMIN)
+# ===============================
+pesananAll:
+    get:
+        tags:
+            - Pesanan
+        summary: Ambil seluruh pesanan (Admin)
+        description: Mengambil seluruh data pesanan untuk admin
+        security:
+            - bearerAuth: []
+        responses:
+            '200':
+                description: Data seluruh pesanan berhasil diambil
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                success:
+                                    type: boolean
+                                    example: true
+                                data:
+                                    type: array
+                                    items:
+                                        type: object
+                                        properties:
+                                            id_pesanan:
+                                                type: integer
+                                                example: 1
+                                            status_pesanan:
+                                                type: string
+                                                example: MENUNGGU_DP
+                                            dp_status:
+                                                type: string
+                                                example: BELUM
+                                            pelunasan_status:
+                                                type: string
+                                                example: BELUM
+                                            total_harga:
+                                                type: integer
+                                                example: 1200000
+                                            tanggal_pesan:
+                                                type: string
+                                                format: date-time
+            '403':
+                description: Akses ditolak
+            '500':
+                description: Gagal mengambil data pesanan
+
+# ===============================
 # UPDATE STATUS PESANAN (ADMIN)
 # ===============================
 pesananStatus:

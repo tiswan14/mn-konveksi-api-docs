@@ -22,6 +22,8 @@ tags:
     - name: Produk
     - name: Pesanan
     - name: Transaksi
+    - name: Laporan
+
 
 paths:
     # =========================
@@ -57,21 +59,16 @@ paths:
     /api/produk/{id}:
         $ref: './paths/produk.yaml#/produkById'
 
-    # =========================
-    # PESANAN
-    # =========================
     /api/pesanan:
         $ref: './paths/pesanan.yaml#/pesanan'
-
+    /api/pesanan/all:
+        $ref: './paths/pesanan.yaml#/pesananAll'
     /api/pesanan/{id}:
         $ref: './paths/pesanan.yaml#/pesananById'
-
     /api/pesanan/{id}/status:
         $ref: './paths/pesanan.yaml#/pesananStatus'
-
     /api/pesanan/me/summary:
         $ref: './paths/pesanan.yaml#/pesananSummaryUser'
-
     /api/pesanan/admin/summary:
         $ref: './paths/pesanan.yaml#/pesananSummaryAdmin'
 
@@ -83,3 +80,27 @@ paths:
 
     /api/transaksi/webhook:
         $ref: './paths/transaksi.yaml#/transaksiWebhook'
+
+    # =========================
+    # LAPORAN (ADMIN)
+    # =========================
+    /api/laporan/pendapatan/harian:
+        $ref: './paths/laporan.yaml#/pendapatanHarian'
+
+    /api/laporan/pendapatan/bulanan:
+        $ref: './paths/laporan.yaml#/pendapatanBulanan'
+
+    /api/laporan/pendapatan/tahunan:
+        $ref: './paths/laporan.yaml#/pendapatanTahunan'
+
+    /api/laporan/pesanan/status:
+        $ref: './paths/laporan.yaml#/pesananStatus'
+
+    /api/laporan/pesanan/harian:
+        $ref: './paths/laporan.yaml#/pesananHarian'
+
+    /api/laporan/pesanan/bulanan:
+        $ref: './paths/laporan.yaml#/pesananBulanan'
+
+    /api/laporan/pesanan/tahunan:
+        $ref: './paths/laporan.yaml#/pesananTahunan'
