@@ -165,3 +165,176 @@ pesananTahunan:
                 description: Akses ditolak
             '500':
                 description: Gagal mengambil data
+
+laporanPesanan:
+    get:
+        tags:
+            - Laporan
+        summary: Laporan Pesanan (Range Tanggal)
+        description: >
+            Mengambil laporan pesanan berdasarkan rentang tanggal.
+            Data mencakup ringkasan keuangan dan detail pesanan.
+            Mendukung output JSON, PDF, dan Excel. (Admin only)
+        security:
+            - bearerAuth: []
+
+        parameters:
+            - name: from
+              in: query
+              required: true
+              schema:
+                  type: string
+                  format: date
+                  example: 2026-01-01
+
+            - name: to
+              in: query
+              required: true
+              schema:
+                  type: string
+                  format: date
+                  example: 2026-01-31
+
+            - name: status
+              in: query
+              required: false
+              schema:
+                  type: string
+                  enum:
+                      - MENUNGGU_PEMBAYARAN
+                      - DIPROSES
+                      - SELESAI
+                      - DIBATALKAN
+                  example: DIPROSES
+
+            - name: format
+              in: query
+              required: false
+              schema:
+                  type: string
+                  enum:
+                      - json
+                      - pdf
+                      - excel
+                  default: json
+                  example: json
+
+        responses:
+            '200':
+                description: Laporan pesanan berhasil diambil
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                success:
+                                    type: boolean
+                                    example: true
+
+                                mode:
+                                    type: string
+                                    example: json
+
+                                result:
+                                    type: object
+                                    properties:
+                                        periode:
+                                            type: object
+                                            properties:
+                                                from:
+                                                    type: string
+                                                    format: date
+                                                    example: 2026-01-01
+                                                to:
+                                                    type: string
+                                                    format: date
+                                                    example: 2026-01-31
+
+                                        summary:
+                                            type: object
+                                            properties:
+                                                total_pesanan:
+                                                    type: integer
+                                                    example: 3
+                                                total_transaksi:
+                                                    type: integer
+                                                    example: 2
+                                                total_nilai_pesanan:
+                                                    type: integer
+                                                    example: 4700000
+                                                total_pendapatan:
+                                                    type: integer
+                                                    example: 1450000
+                                                total_sisa_tagihan:
+                                                    type: integer
+                                                    example: 3250000
+
+                                        data:
+                                            type: array
+                                            items:
+                                                type: object
+                                                properties:
+                                                    customer:
+                                                        type: string
+                                                        example: Randi Kambing Sajah
+
+                                                    produk:
+                                                        type: string
+                                                        example: jaket bomber
+
+                                                    qty:
+                                                        type: integer
+                                                        example: 10
+
+                                                    nilai_pesanan:
+                                                        type: integer
+                                                        example: 1700000
+
+                                                    sisa_tagihan:
+                                                        type: integer
+                                                        example: 850000
+
+                                                    pembayaran:
+                                                        type: object
+                                                        properties:
+                                                            jenis:
+                                                                type: string
+                                                                example: DP
+                                                            jumlah:
+                                                                type: integer
+                                                                example: 850000
+                                                            status:
+                                                                type: string
+                                                                enum:
+                                                                    - BELUM BAYAR
+                                                                    - SEBAGIAN
+                                                                    - LUNAS
+                                                                example: SEBAGIAN
+
+                                                    status_pesanan:
+                                                        type: string
+                                                        enum:
+                                                            - MENUNGGU_PEMBAYARAN
+                                                            - DIPROSES
+                                                            - SELESAI
+                                                            - DIBATALKAN
+                                                        example: DIPROSES
+
+                    application/pdf:
+                        schema:
+                            type: string
+                            format: binary
+
+                    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+                        schema:
+                            type: string
+                            format: binary
+
+            '400':
+                description: Parameter tidak valid
+
+            '403':
+                description: Akses ditolak
+
+            '500':
+                description: Gagal mengambil data

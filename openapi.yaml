@@ -24,7 +24,6 @@ tags:
     - name: Transaksi
     - name: Laporan
 
-
 paths:
     # =========================
     # AUTH
@@ -104,3 +103,5 @@ paths:
 
     /api/laporan/pesanan/tahunan:
         $ref: './paths/laporan.yaml#/pesananTahunan'
+    /api/laporan/pesanan:
+        $ref: './paths/laporan.yaml#/laporanPesanan'
